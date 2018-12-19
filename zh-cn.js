@@ -22,7 +22,19 @@ const locale = {
     MM: '%d 个月',
     y: '1 年',
     yy: '%d 年'
-  }
+  },
+  longDateFormat: {
+    LT : 'HH:mm',
+    LTS : 'HH:mm:ss',
+    L : 'YYYY年MMMD日',
+    LL : 'YYYY年MMMD日',
+    LLL : 'YYYY年MMMD日Ah点mm分',
+    LLLL : 'YYYY年MMMD日ddddAh点mm分',
+    l : 'YYYY年MMMD日',
+    ll : 'YYYY年MMMD日',
+    lll : 'YYYY年MMMD日 HH:mm',
+    llll : 'YYYY年MMMD日dddd HH:mm'
+  },
 }
 
 dayjs.locale(locale, null, true)
