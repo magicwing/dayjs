@@ -12,7 +12,8 @@ function getTimestampOffset(timezoneOffset, pastTimezoneOffset = tz.LOCAL_TIMEZO
 }
 
 class UTCDate {
-  constructor(arg = new Date(), $timezoneOffset = arg.getTimezoneOffset()) {
+  constructor(arg = new Date()/*, $timezoneOffset = arg.getTimezoneOffset() */) {
+    const $timezoneOffset = tz.DEFAULT_TIMEZONE_OFFSET;
     this.$d = new Date(arg.getTime() - getTimestampOffset($timezoneOffset))
     this.$timezoneOffset = $timezoneOffset
   }

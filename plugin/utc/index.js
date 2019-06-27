@@ -4,21 +4,35 @@ import tzData from './tzData'
 
 let RETURN_LOCAL_INSTANCE = false
 
-const injectDayjsClass = function (pluginPrototype, $super) {
-  ['clone', 'add', 'subtract'].forEach((key) => {
-    pluginPrototype[key] = function () {
-      const $utcOffset = this.utcOffset()
-      // eslint-disable-next-line prefer-rest-params
-      return $super[key].apply(this, arguments).utcOffset($utcOffset)
-    }
-  })
-  pluginPrototype.utc = function () {
+export default function (option = {}, Dayjs, dayjs) {
+  RETURN_LOCAL_INSTANCE = !!option.parseToLocal
+  const proto = Dayjs.prototype
+
+  const oldClone = proto.clone;
+  proto.clone = function () {
+    const $utcOffset = this.utcOffset()
+    return oldClone.apply(this, arguments).utcOffset($utcOffset)
+  }
+
+  const oldAdd = proto.add;
+  proto.add = function () {
+    const $utcOffset = this.utcOffset()
+    return oldAdd.apply(this, arguments).utcOffset($utcOffset)
+  }
+
+  const oldSubtract = proto.subtract;
+  proto.subtract = function () {
+    const $utcOffset = this.utcOffset()
+    return oldSubtract.apply(this, arguments).utcOffset($utcOffset)
+  }
+
+  proto.utc = function () {
     return this.utcOffset(0)
   }
-  pluginPrototype.local = function () {
+  proto.local = function () {
     return this.utcOffset(-tz.LOCAL_TIMEZONE_OFFSET)
   }
-  pluginPrototype.utcOffset = function (arg) {
+  proto.utcOffset = function (arg) {
     if (arg === undefined) {
       const rTZ = this.$d.getTimezoneOffset()
       return rTZ === 0 ? 0 : -rTZ
@@ -29,37 +43,24 @@ const injectDayjsClass = function (pluginPrototype, $super) {
     }
     return this
   }
-  pluginPrototype.toDate = function () {
+  proto.toDate = function () {
     return new Date(this.$d.getTime())
   }
-  pluginPrototype.isLocal = function () {
+  proto.isLocal = function () {
     return this.$d.getTimezoneOffset() === tz.LOCAL_TIMEZONE_OFFSET
   }
-  pluginPrototype.isUTC = function () {
+  proto.isUTC = function () {
     return this.$d.getTimezoneOffset() === 0
   }
-  pluginPrototype.parse = function (cfg) {
-    $super.parse.call(this, cfg)
+  const oldParse= proto.parse;
+  proto.parse = function (cfg) {
+    oldParse.call(this, cfg)
     const { $d } = this
     const tzOffset = typeof cfg.date === 'string' ? parseTimezoneOffset(cfg.date) : null
-    this.$d = new UTCDate($d, tzOffset === null ? tz.DEFAULT_TIMEZONE_OFFSET : -tzOffset)
+    this.$d = new UTCDate($d, /* !tzOffset ? tz.DEFAULT_TIMEZONE_OFFSET : -tzOffset */)
     if (RETURN_LOCAL_INSTANCE) this.local()
     this.init()
   }
-}
-
-export default function (option = {}, Dayjs, dayjs) {
-  RETURN_LOCAL_INSTANCE = !!option.parseToLocal
-  const $super = Dayjs.prototype
-
-  const PluginClass = function () { }
-  PluginClass.prototype = $super
-  const classPrototype = new PluginClass()
-
-  injectDayjsClass(classPrototype, $super)
-
-  classPrototype.constructor = Dayjs.constructor
-  Dayjs.prototype = classPrototype
 
   dayjs.utc = function (cfg) {
     const tmpDayjs = this(cfg)

@@ -1,5 +1,4 @@
 import { FORMAT_DEFAULT } from '../constant';
-import assign from 'object-assign';
 
 const defaultLongDateFormat = {
   LT: 'h:mm A',
@@ -16,17 +15,17 @@ export default (option, dayjsClass, dayjsFactory) => {
   const prop = dayjsClass.prototype;
 
   // 兼容日期属性读取和设置
-  function makeGetSet(unit) {
-    return function(value) {
-      if (value != null) {
-        return this.set(unit, value);
+  const dateKey = ['year', 'month', 'day', 'hour', 'minute', 'second', 'millisecond'];
+  dateKey.forEach(v => {
+    const oldGet = prop[v];
+    prop[v] = function (value) {
+      if (value === undefined) {
+        return oldGet.bind(this)();
       } else {
-        return this[unit];
+        return this.set(v, value);
       }
     };
-  }
-  const dateKey = ['year', 'month', 'day', 'hour', 'minute', 'second', 'millisecond'];
-  dateKey.forEach(v => prop[v] = makeGetSet(v));
+  });
 
   // 日期格式化
   const oldFormat = prop.format;
@@ -50,7 +49,7 @@ export default (option, dayjsClass, dayjsFactory) => {
     const _locale = {};
     Object.keys(locale).forEach(key => {
       const value = locale[key];
-      _locale['_' + key] = Array.isArray(value) ? assign([], value) : typeof value === 'object' ? assign({}, value) : value;
+      _locale['_' + key] = Array.isArray(value) ? Object.assign([], value) : typeof value === 'object' ? Object.assign({}, value) : value;
     });
     return _locale;
   };

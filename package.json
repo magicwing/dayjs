@@ -1,11 +1,10 @@
 {
-  "name": "wx-dayjs",
+  "name": "dayjs",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
   },
   "dependencies": {
-  	"object-assign": "^4.1.1"
   },
   "devDependencies": {
   }
