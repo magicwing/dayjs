@@ -1,25 +1,15 @@
-import moment from './moment';
-
-const TIMEZONE = {
-	'Asia/Shanghai': 480
-};
-
-let DEFAULT_TIMEZONE = -1 * new Date().getTimezoneOffset();
-
-function dayjs(date) {
-	const isUTCstr = typeof date === 'string' && date.indexOf('T') > -1;
-	return moment.isMoment(date) ? date : moment(date).utcOffset(DEFAULT_TIMEZONE, !isUTCstr);
-}
-
-dayjs.setDefault = function(zone) {
-	const _zone = TIMEZONE[zone];
-	if (_zone !== null && _zone !== undefined) {
-		DEFAULT_TIMEZONE = _zone;
-	}
-};
-
-dayjs.locale = function(name) {
-	moment.locale(name);
-}
+import dayjs from './dayjs';
+import dayjsUTC from './plugin/utc/index';
+import dayjsAF from './plugin/advancedFormat';
+import dayjsIB from './plugin/isBetween';
+import dayjsRT from './plugin/relativeTime';
+import dayjsMM from './plugin/mergeMoment';
+import './zh-cn';
+dayjs.locale('zh-cn');
+dayjs.extend(dayjsUTC);
+dayjs.extend(dayjsAF);
+dayjs.extend(dayjsIB);
+dayjs.extend(dayjsRT);
+dayjs.extend(dayjsMM);
 
 export default dayjs;

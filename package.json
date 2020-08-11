@@ -1,10 +1,66 @@
 {
-	"name": "dayjs",
-	"version": "1.0.1",
-	"main": "index.js",
-	"scripts": {},
-	"dependencies": {},
-	"devDependencies": {
-		"moment": "latest"
-	}
+  "_args": [
+    [
+      {
+        "raw": "dayjs@github:magicwing/dayjs",
+        "scope": null,
+        "escapedName": "dayjs",
+        "name": "dayjs",
+        "rawSpec": "github:magicwing/dayjs",
+        "spec": "github:magicwing/dayjs",
+        "type": "hosted",
+        "hosted": {
+          "type": "github",
+          "ssh": "git@github.com:magicwing/dayjs.git",
+          "sshUrl": "git+ssh://git@github.com/magicwing/dayjs.git",
+          "httpsUrl": "git+https://github.com/magicwing/dayjs.git",
+          "gitUrl": "git://github.com/magicwing/dayjs.git",
+          "shortcut": "github:magicwing/dayjs",
+          "directUrl": "https://raw.githubusercontent.com/magicwing/dayjs/master/package.json"
+        }
+      },
+      "C:\\Disk\\WorkSpace\\Gaotoo"
+    ]
+  ],
+  "_from": "magicwing/dayjs",
+  "_id": "dayjs@1.0.0",
+  "_inCache": true,
+  "_location": "/dayjs",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "dayjs@github:magicwing/dayjs",
+    "scope": null,
+    "escapedName": "dayjs",
+    "name": "dayjs",
+    "rawSpec": "github:magicwing/dayjs",
+    "spec": "github:magicwing/dayjs",
+    "type": "hosted",
+    "hosted": {
+      "type": "github",
+      "ssh": "git@github.com:magicwing/dayjs.git",
+      "sshUrl": "git+ssh://git@github.com/magicwing/dayjs.git",
+      "httpsUrl": "git+https://github.com/magicwing/dayjs.git",
+      "gitUrl": "git://github.com/magicwing/dayjs.git",
+      "shortcut": "github:magicwing/dayjs",
+      "directUrl": "https://raw.githubusercontent.com/magicwing/dayjs/master/package.json"
+    }
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "git://github.com/magicwing/dayjs.git#fa611a28c27585eee02811ff81da5410553da319",
+  "_shasum": "f58f023e0f5ba8bd5b23c120b85e2b740eab824b",
+  "_shrinkwrap": null,
+  "_spec": "dayjs@github:magicwing/dayjs",
+  "_where": "C:\\Disk\\WorkSpace\\Gaotoo",
+  "dependencies": {},
+  "devDependencies": {},
+  "gitHead": "fa611a28c27585eee02811ff81da5410553da319",
+  "main": "index.js",
+  "name": "dayjs",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "scripts": {},
+  "version": "1.0.0"
 }
